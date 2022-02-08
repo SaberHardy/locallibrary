@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -90,7 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EUROPE/KIEV'
 
 USE_I18N = True
 
@@ -106,4 +107,17 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TIME_ZONE = 'EUROPE/KIEV'
+# TIME_ZONE = 'EUROPE/KIEV'
+
+MEDIA_URL = 'media/'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]

@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>This is from django</h1>
-</body>
-</html>
+{% extends 'catalog/base.html' %}
+<title>{% block title %}All counts{% endblock %}</title>
+
+
+
+{% block content %}
+    <h1>Local library Home</h1>
+    <p>Welcome to hardy library, this website will give you a good understanding about Django Process
+        this is made by <small>Hardy</small></p>
+    <h2>Dynamic Content</h2>
+    <p>This Library is contains:</p>
+    <ul>
+        <li>Number of books: {{ num_books }}</li>
+        <li>Number of instances: {{ num_instances }}</li>
+        <li>Number of instances available: {{ num_instances_available }}</li>
+        <li>Number of authors: {{ num_authors }}</li>
+    </ul>
+    <h2>Number of Genders</h2>
+
+    <ul>
+        <li>Number of genders: {{ num_genders }}</li>
+        <li>Type genders count: {{ genders_type }}</li>
+    </ul>
+
+{% endblock %}
