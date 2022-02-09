@@ -25,7 +25,7 @@ class Book(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('book-detail', args=[str(self.id)])
+        return reverse('book_detail', args=[str(self.id)])
 
     # We added this part because we can't display the books in admin section because of ManyToManyField
     def display_genre(self):

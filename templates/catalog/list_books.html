@@ -1,0 +1,20 @@
+{% extends 'catalog/base.html' %}
+<title>{% block title %}All books{% endblock %}</title>
+
+{% block content %}
+    <h1>List of books</h1>
+    {% if my_books %}
+        <ul>
+            {% for book in my_books %}
+                <li>
+                    <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                    {{ book.author|upper }}
+                </li>
+            {% empty %}
+                <p>No books exists in this library!</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No books exists in this library!</p>
+    {% endif %}
+{% endblock %}

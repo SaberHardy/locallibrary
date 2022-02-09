@@ -1,5 +1,6 @@
+from django.http import Http404
 from django.shortcuts import render
-
+from django.views.generic import ListView, DetailView
 from catalog.models import *
 
 
@@ -22,3 +23,24 @@ def home(request):
     }
 
     return render(request, 'catalog/home.html', context=context)
+
+
+class BookList(ListView):
+    model = Book
+    context_object_name = 'my_books'  # this context we use it in template for loop-in
+    queryset = Book.objects.filter(title__icontains="book")[:5]
+    template_name = 'catalog/list_books.html'
+
+
+class BookDetail(DetailView):
+    model = Book
+    template_name = 'catalog/book_detail.html'
+
+
+# def book_detail(request, pk):
+#     try:
+#         book = Book.objects.get(pk=pk)
+#     except Book.DoesNotExist:
+#         raise Http404('Book does not exist')
+#
+#     return render(request, 'catalog/book_detail.html', context={'book': book})
