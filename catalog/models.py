@@ -11,29 +11,6 @@ class Genre(models.Model):
         return self.name
 
 
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    isbn = models.CharField('ISBN',
-                            max_length=15,
-                            unique=True,
-                            help_text='15 Character <a href="https://www.isbn-international.org/content/what-isbn</a>"')
-    genre = models.ManyToManyField(Genre, help_text="Select genre book")
-    summery = models.CharField(max_length=1000, help_text="Enter a brief description about this book")
-
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse('book_detail', args=[str(self.id)])
-
-    # We added this part because we can't display the books in admin section because of ManyToManyField
-    def display_genre(self):
-        return ', '.join([genre.name for genre in self.genre.all()[:3]])
-
-    display_genre.short_description = 'Genre'
-
-
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique id')
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
@@ -71,7 +48,30 @@ class Author(models.Model):
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('author_detail', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
+
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
+    isbn = models.CharField('ISBN',
+                            max_length=15,
+                            unique=True,
+                            help_text='15 Character <a href="https://www.isbn-international.org/content/what-isbn</a>"')
+    genre = models.ManyToManyField(Genre, help_text="Select genre book")
+    summery = models.CharField(max_length=1000, help_text="Enter a brief description about this book")
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('book_detail', args=[str(self.id)])
+
+    # We added this part because we can't display the books in admin section because of ManyToManyField
+    def display_genre(self):
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
+
+    display_genre.short_description = 'Genre'

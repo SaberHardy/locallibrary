@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container m-5">
         <h1>Book " {{ book.title }} " Detail</h1>
-        <p><strong>Author:</strong><a href="#"> {{ book.author }}</a></p>
+        <p><strong>Author:</strong><a href="{{ book.author.get_absolute_url }}"> {{ book.author }}</a></p>
         <p><strong>ISBN:</strong> {{ book.isbn }}</p>
         {#        <p><strong>Genre:</strong>{{ book.genre }}</p> <!--This will rais an error because it's a queryset-- >#}
         <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>

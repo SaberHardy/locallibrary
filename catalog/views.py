@@ -30,6 +30,7 @@ class BookList(ListView):
     context_object_name = 'my_books'  # this context we use it in template for loop-in
     queryset = Book.objects.filter(title__icontains="book")[:5]
     template_name = 'catalog/list_books.html'
+    paginate_by = 3
 
 
 class BookDetail(DetailView):
@@ -37,10 +38,12 @@ class BookDetail(DetailView):
     template_name = 'catalog/book_detail.html'
 
 
-# def book_detail(request, pk):
-#     try:
-#         book = Book.objects.get(pk=pk)
-#     except Book.DoesNotExist:
-#         raise Http404('Book does not exist')
-#
-#     return render(request, 'catalog/book_detail.html', context={'book': book})
+class AuthorListView(ListView):
+    model = Author
+    template_name = 'catalog/all_authors.html'
+
+
+class AuthorDetail(DetailView):
+    model = Author
+    template_name = 'catalog/author_detail.html'
+

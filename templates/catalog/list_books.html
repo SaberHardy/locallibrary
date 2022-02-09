@@ -2,19 +2,42 @@
 <title>{% block title %}All books{% endblock %}</title>
 
 {% block content %}
-    <h1>List of books</h1>
-    {% if my_books %}
-        <ul>
+    <h1 class="text-center mt-3">List of books</h1>
+
+    <table class="table mx-5 my-5">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Author</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Number books</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Availability</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if my_books %}
             {% for book in my_books %}
-                <li>
-                    <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
-                    {{ book.author|upper }}
-                </li>
-            {% empty %}
-                <p>No books exists in this library!</p>
+                <tr>
+                    <th scope="row">{{ book.id }}</th>
+                    <td><a href="{{ book.author.get_absolute_url }}">
+                        {{ book.author.last_name }} {{ book.author.first_name }}</a>
+                    </td>
+                    <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
+                    <td>{{ book.author.book_set.count }}</td>
+                    <td>{{ book.display_genre }}</td>
+
+                    {% for copy in book.bookinstance_set.all %}
+                        <td>
+                            <p class="{% if copy.status == 'a' %}text-success
+                                {% elif copy.status == 'm' %}text-danger
+                                {% else %}text-warning{% endif %}">
+                                {{ copy.get_status_display }}</p>
+                        </td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>No books exists in this library!</p>
-    {% endif %}
+        {% endif %}
+        </tbody>
+    </table>
 {% endblock %}
