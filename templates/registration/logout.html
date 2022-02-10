@@ -1,9 +1,0 @@
-{% extends 'catalog/base.html' %}
-<title>
-    {% block title %}Logout{% endblock %}
-</title>
-
-{% block content %}
-    <p class="col-lg-6 offset-lg-4 mt-5">You successfully logged out</p>
-    <a href="{% url 'login' %}">Click here to login again!</a>
-{% endblock %}

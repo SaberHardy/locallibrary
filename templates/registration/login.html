@@ -20,17 +20,18 @@
                 <table>
                     <tr>
                         <td>{{ form.username.label_tag }}</td>
-                        <td>{{ form.username }}</td>
+                        <td class="col-4 mt-3">{{ form.username }}</td>
                     </tr>
                     <tr>
                         <td>{{ form.password.label_tag }}</td>
-                        <td>{{ form.password }}</td>
+                        <td class="col-4 mt-3">{{ form.password }}</td>
                     </tr>
                 </table>
-            </div>
-            <input type="submit" value="Login" class="btn btn-success col-6 mt-3">
+                <input type="submit" value="Login" class="btn btn-success mt-3">
             <input type="hidden" name="next" value="{{ next }}">
+            </div>
+
         </form>
-        <p><a href="{% url 'password_reset' %}">Reset password!</a></p>
+        <p class="mt-2">If you forget your password <a href="{% url 'password_reset' %}">Reset password!</a></p>
     </div>
 {% endblock %}
