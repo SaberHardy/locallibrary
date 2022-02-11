@@ -23,14 +23,5 @@
     </ul>
 
     <p>You visited this page: {{ num_visits }} time{{ num_visits|pluralize }}</p>
-    {% if user.is_authenticated %}
-        <p class="text-center mb-5">{{ user.get_username|capfirst }} If you want to log out click
-            <a href="{% url 'logout' %}?next={{ request.path }}"> Logout</a></p>
-        {% else %}
-
-        <p class="text-center mb-5">If you want to log in click
-            <a href="{% url 'login' %}?next={{ request.path }}"> Login</a></p>
-
-    {% endif %}
 
 {% endblock %}

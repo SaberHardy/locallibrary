@@ -2,17 +2,19 @@
 <title>{% block title %}Login{% endblock %}</title>
 
 {% block content %}
-    {% if form.error %}
-        <p>Your user name and password didn't match. Please try again!</p>
-    {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-            <p>Your are not allowed to access to this page. Please login!!</p>
-        {% else %}
-            <p>Please login to see this page!</p>
+    <div class="offset-4 mt-5">
+        {% if form.error %}
+            <p>Your user name and password didn't match. Please try again!</p>
         {% endif %}
-    {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your are not allowed to access to this page. Please login!!</p>
+            {% else %}
+                <p>Please login to see this page!</p>
+            {% endif %}
+        {% endif %}
+    </div>
     <div class="col-lg-6 offset-lg-4 mt-5">
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -28,7 +30,7 @@
                     </tr>
                 </table>
                 <input type="submit" value="Login" class="btn btn-success mt-3">
-            <input type="hidden" name="next" value="{{ next }}">
+                <input type="hidden" name="next" value="{{ next }}">
             </div>
 
         </form>

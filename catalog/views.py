@@ -1,5 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render
+from django.views import generic
 from django.views.generic import ListView, DetailView
 from catalog.models import *
 
@@ -52,3 +54,11 @@ class AuthorDetail(DetailView):
     model = Author
     template_name = 'catalog/author_detail.html'
 
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    model = BookInstance
+    template_name = 'catalog/book_instance_borrowed.html'
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user)\
+                            .filter(status__exact='o').order_by('due_back')

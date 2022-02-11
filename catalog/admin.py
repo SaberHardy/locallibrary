@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(Genre)
+
+
 # admin.site.register(Language)
 
 
@@ -31,13 +33,7 @@ admin.site.register(Book, BookAdmin)
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
-    """Administration object for BookInstance models.
-    Defines:
-     - fields to be displayed in list view (list_display)
-     - filters that will be displayed in sidebar (list_filter)
-     - grouping of fields into sections (fieldsets)
-    """
-    list_display = ('book', 'status', 'due_back', 'id')
+    list_display = ('id', 'book', 'status', 'due_back', 'borrower')
     list_filter = ('status', 'due_back')
 
     fieldsets = (
@@ -45,6 +41,6 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('book', 'imprint', 'id')
         }),
         ('Availability', {
-            'fields': ('status', 'due_back')
+            'fields': ('status', 'due_back', 'borrower')
         }),
     )
