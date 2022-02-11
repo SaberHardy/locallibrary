@@ -3,11 +3,11 @@
 
 {% block content %}
     <h1 class="text-center mt-5">List of Authors</h1>
-{#    {% for author in author_list %}#}
-{#        <li><a href="{{ author.get_absolute_url }}">#}
-{#            {{ author.first_name }}</a> - ( {{ author.date_of_birth }} ) have: ({{ author.book_set.count }})#}
-{#        </li>#}
-{#    {% endfor %}#}
+    {#    {% for author in author_list %}#}
+    {#        <li><a href="{{ author.get_absolute_url }}">#}
+    {#            {{ author.first_name }}</a> - ( {{ author.date_of_birth }} ) have: ({{ author.book_set.count }})#}
+    {#        </li>#}
+    {#    {% endfor %}#}
 
 
     <table class="table mx-5 my-5">
@@ -17,6 +17,7 @@
             <th scope="col">Author</th>
             <th scope="col">Date of birth</th>
             <th scope="col" class="text-center">Books Published</th>
+            <th scope="col" class="text-center">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,9 @@
                 </td>
                 <td>{{ author.date_of_birth }}</td>
                 <td class="text-center">{{ author.book_set.count }}</td>
+                <td class="text-center"><a href="{% url 'delete_author' author.id %}">
+                    <i class="bi bi-trash-fill" style="color:red"></i></a>
+                </td>
             </tr>
         {% endfor %}
 

@@ -1,0 +1,13 @@
+{% extends 'catalog/base.html' %}
+<title>{% block title %}Delete author{% endblock %}</title>
+
+{% block content %}
+    <h1 class="text-center">
+        Delete author
+    </h1>
+    <p>Are you sure you want to delete {{ author.first_name }} {{ author.last_name }}</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input value="Yes, delete" type="submit">
+    </form>
+{% endblock %}

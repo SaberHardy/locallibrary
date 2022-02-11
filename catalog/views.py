@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import RenewBookForm
 from catalog.models import *
@@ -65,7 +66,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     template_name = 'catalog/book_instance_borrowed.html'
 
     def get_queryset(self):
-        return BookInstance.objects.filter(borrower=self.request.user)\
+        return BookInstance.objects.filter(borrower=self.request.user) \
             .filter(status__exact='o').order_by('due_back')
 
 
@@ -91,3 +92,19 @@ def renew_book(request, pk):
     }
 
     return render(request, 'catalog/book_renew.html', context)
+
+
+class AuthorCreate(CreateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    initial = {'date_of_death': '11/09/2021'}
+
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = '__all__'
+
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('authors')
