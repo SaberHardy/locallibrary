@@ -1,0 +1,13 @@
+{% extends 'catalog/base.html' %}
+<title>{% block title %}Create Book{% endblock %}</title>
+
+{% block content %}
+    <h1>You are here to create book</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit Result" class="btn btn-success mt-3 mb-5">
+    </form>
+{% endblock %}

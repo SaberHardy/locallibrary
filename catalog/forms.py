@@ -16,7 +16,7 @@ import datetime
 #             raise ValidationError(_('Invalid date renewal more than 4 weeks ahead!'))
 #
 #         return data
-from catalog.models import BookInstance
+from catalog.models import BookInstance, Book, Author
 
 """We can remove all this code and replace it by Model form"""
 
@@ -41,3 +41,34 @@ class RenewBookForm(forms.ModelForm):
         fields = ['due_back']
         labels = {'due_back': _('New renewal date')}
         help_texts = {'due_back': _('Enter a date between now and for weeks')}
+
+
+choices = Author.objects.all().values_list()
+
+choices_list = []
+
+for item in choices:
+    choices_list.append(item)
+
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = "__all__"
+        help_texts = {
+            'summery': None,
+            'genre': None,
+            'isbn': None
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your book title'}),
+            'imprint': forms.TextInput(attrs={'class': 'form-control mt-4', 'placeholder': 'Enter imprint'}),
+            'author': forms.Select(choices=choices_list, attrs={'class': 'form-control mt-2'}),
+            'due_back': forms.DateField(),
+            'isbn': forms.TextInput(attrs={'class': 'form-control mt-2', 'placeholder': 'Enter ISBN'}),
+            'genre': forms.CheckboxSelectMultiple(attrs={'class': 'mt-2'}),
+            'summery': forms.Textarea(
+                attrs={'class': 'form-control mt-4', 'placeholder': 'Enter some bio about this book'}),
+
+        }

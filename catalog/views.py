@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import RenewBookForm
+from catalog.forms import RenewBookForm, BookForm
 from catalog.models import *
 
 
@@ -41,9 +41,9 @@ def home(request):
 class BookList(ListView):
     model = Book
     context_object_name = 'my_books'  # this context we use it in template for loop-in
-    queryset = Book.objects.filter(title__icontains="book")[:5]
+    queryset = Book.objects.filter(title__icontains="book")
     template_name = 'catalog/list_books.html'
-    paginate_by = 3
+    paginate_by = 5
 
 
 class BookDetail(DetailView):
@@ -108,3 +108,10 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+
+
+class BookCreate(CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'catalog/book_form.html'
+    # fields = '__all__'

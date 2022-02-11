@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         {% if my_books %}
-            {% for book in my_books %}
+            {% for book in object_list %}
                 <tr>
                     <th scope="row">{{ book.id }}</th>
                     <td><a href="{{ book.author.get_absolute_url }}">
