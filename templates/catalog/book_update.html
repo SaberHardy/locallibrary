@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+<title>{% block title %}Update Book{% endblock %}</title>
+
+{% block content %}
+    <h1 class="text-center">You are here to Update book</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table class="">
+            {{ form.as_p }}
+        </table>
+
+        <div class="col-md-12 text-center mb-5">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+{% endblock %}

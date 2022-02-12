@@ -12,8 +12,7 @@
             <th scope="col">Book Name</th>
             <th scope="col">Number books</th>
             <th scope="col">Genre</th>
-            <th scope="col">Availability</th>
-            <th scope="col">Renew book</th>
+            <th scope="col">Update</th>
         </tr>
         </thead>
         <tbody>
@@ -27,15 +26,9 @@
                     <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
                     <td>{{ book.author.book_set.count }}</td>
                     <td>{{ book.display_genre }}</td>
-
-                    {% for copy in book.bookinstance_set.all %}
-                        <td>
-                            <p class="{% if copy.status == 'a' %}text-success
-                                {% elif copy.status == 'm' %}text-danger
-                                {% else %}text-warning{% endif %}">
-                                {{ copy.get_status_display }}</p>
-                        </td>
-                    {% endfor %}
+                    <td class="text-center"><a href="{% url 'update_book' book.id %}">
+                        <i class="bi bi-pencil-square text-success"></i>
+                    </a> </td>
                 </tr>
             {% endfor %}
         {% endif %}

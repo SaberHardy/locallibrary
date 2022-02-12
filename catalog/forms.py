@@ -70,5 +70,26 @@ class BookForm(forms.ModelForm):
             'genre': forms.CheckboxSelectMultiple(attrs={'class': 'mt-2'}),
             'summery': forms.Textarea(
                 attrs={'class': 'form-control mt-4', 'placeholder': 'Enter some bio about this book'}),
+        }
 
+
+class UpdateBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = "__all__"
+        help_texts = {
+            'summery': None,
+            'genre': None,
+            'isbn': None
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your book title'}),
+            'imprint': forms.TextInput(attrs={'class': 'form-control mt-4', 'placeholder': 'Enter imprint'}),
+            'author': forms.Select(choices=choices_list, attrs={'class': 'form-control mt-2'}),
+            'due_back': forms.DateField(),
+            'isbn': forms.TextInput(attrs={'class': 'form-control mt-2', 'placeholder': 'Enter ISBN'}),
+            'genre': forms.CheckboxSelectMultiple(attrs={'class': 'mt-2'}),
+            'summery': forms.Textarea(
+                attrs={'class': 'form-control mt-4', 'placeholder': 'Enter some bio about this book'}),
         }

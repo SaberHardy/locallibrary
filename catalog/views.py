@@ -115,3 +115,10 @@ class BookCreate(CreateView):
     form_class = BookForm
     template_name = 'catalog/book_form.html'
     # fields = '__all__'
+
+
+class BookUpdate(UpdateView):
+    model = Book
+    form_class = BookForm
+    # fields = '__all__'
+    template_name = 'catalog/book_update.html'
