@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -122,3 +122,9 @@ class BookUpdate(UpdateView):
     form_class = BookForm
     # fields = '__all__'
     template_name = 'catalog/book_update.html'
+
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('book_list')
+    permission_required = 'catalog.can_mark_returned'

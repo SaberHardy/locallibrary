@@ -13,6 +13,7 @@
             <th scope="col">Number books</th>
             <th scope="col">Genre</th>
             <th scope="col">Update</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -26,9 +27,17 @@
                     <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
                     <td>{{ book.author.book_set.count }}</td>
                     <td>{{ book.display_genre }}</td>
-                    <td class="text-center"><a href="{% url 'update_book' book.id %}">
-                        <i class="bi bi-pencil-square text-success"></i>
-                    </a> </td>
+                    <td class="text-center">
+                        <a href="{% url 'update_book' book.id %}">
+                            <i class="bi bi-pencil-square text-success"></i>
+                        </a>
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{% url 'delete_book' book.id %}">
+                            <i class="bi bi-trash text-danger"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}
